@@ -2,16 +2,31 @@
   "name": "ver-namen-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "ozcanseker.github.io/verkaufsbucher-zoeken",
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "@turf/turf": "^5.1.6",
+    "leaflet": "^1.6.0",
+    "leaflet.marker.highlight": "0.0.3",
+    "leaflet.markercluster": "^1.4.1",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.13.0",
+    "point-in-geopolygon": "^1.0.1",
+    "react-router-dom": "^5.1.2",
+    "react-spinners": "^0.6.1",
+    "semantic-ui-react": "^0.88.1",
+    "wellknown": "^0.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
   }
 }

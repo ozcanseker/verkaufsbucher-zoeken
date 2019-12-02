@@ -41,6 +41,7 @@ export async function getMatch(text, method) {
 
     //doe hierna 2 queries. Eentje voor exacte match
     let match = await queryDATALABSKADASTER(stringQuery(text));
+    console.log(stringQuery(text));
 
     //als de gebruiker iets nieuws heeft ingetypt geef dan undefined terug.
     if (latestString !== text) {

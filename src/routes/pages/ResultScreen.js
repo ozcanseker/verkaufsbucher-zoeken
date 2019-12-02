@@ -6,31 +6,34 @@ class ResultScreen extends React.Component {
         let results = this.props.res.getRightClickedRes().length > 0 ? this.props.res.getRightClickedRes() : this.props.res.getResults();
 
         let elements = results.map(res => {
-            let pElementHoofd = (<p className= "hoofdText">&nbsp;</p>)
-            let pElementSub = (<p className= "subText">&nbsp;</p>)
+            let pElementKoper = (<p className= "hoofdText">&nbsp;</p>);
+            let pElementVerkoper = (<p className= "hoofdText">&nbsp;</p>);
+            let pElementAdress = <p className= "subText">&nbsp;</p>;
 
-            if(res.getNaam()){
-                pElementHoofd = (<p className= "hoofdText">{res.getNaam()}</p>);
+            if(res.getKoper()){
+                pElementKoper = (<p className= "hoofdText"><b>Koper</b> : {res.getKoper()}</p>);
             }
 
-            if(res.getType()){
-                let color;
-
-                if(res.getColor()){
-                    color = {color: this.props.getHexFromColor(res.getColor(), true)};
-                }
-
-                pElementSub = (<p className= "subText" style={color}>
-                    {res.getType() ? res.getType() : String.fromCharCode(32)}</p>);
+            if(res.getVerkoper()){
+                pElementVerkoper = (<p className= "hoofdText">
+                    <b>Verkoper</b> : {res.getVerkoper()}
+                </p>);
             }
 
-            return (<li key={res instanceof Resultaat ? res.getUrl() + res.getNaam() : res.getNaam + res.getValues()[0].getUrl()}
+            if(res.getAdres()){
+                pElementAdress = (<p className= "subText">
+                    {res.getAdres()}
+                </p>);
+            }
+
+            return (<li key={res.getUrl()}
                         className="liResultScreen"
                         onClick={() => {this.props.onClickItem(res)}}
                         onMouseEnter={() => {res._onHover()}}
                         onMouseLeave={() => {res._onHoverOff()}}>
-                {pElementHoofd}
-                {pElementSub}
+                {pElementVerkoper}
+                {pElementKoper}
+                {pElementAdress}
             </li>)
         });
 

@@ -34,7 +34,7 @@ export function getIndexOfClasses(className) {
  * @returns {boolean}
  */
 export function isShownClickedResults(res) {
-    return res.getType() !== "Land" && res.getType() !== "Provincie";
+    // return res.getType() !== "Land" && res.getType() !== "Provincie";
 }
 
 /**
@@ -80,82 +80,6 @@ export function getColor(type) {
  * @param list
  */
 export function sortByObjectClass(list) {
-    list.sort((a, b) => {
-        a = a.properties;
-        b = b.properties;
-
-        if (a.getType() === "Provincie" || b.getType() === "Provincie") {
-            if (a.getType() === "Provincie" && b.getType() === "Provincie") {
-                return 0;
-            } else if (a.getType() === "Provincie") {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        if (a.getType() === "Gemeente" || b.getType() === "Gemeente") {
-            if (a.getType() === "Gemeente" && b.getType() === "Gemeente") {
-                return 0;
-            } else if (a.getType() === "Gemeente") {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        if (a.getType() === "Woonkern" || b.getType() === "Woonkern") {
-            if (a.getType() === "Woonkern" && b.getType() === "Woonkern") {
-                return 0;
-            } else if (a.getType() === "Woonkern") {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        if (a.getType() === "Stadsdeel" || b.getType() === "Stadsdeel") {
-            if (a.getType() === "Stadsdeel" && b.getType() === "Stadsdeel") {
-                return 0;
-            } else if (a.getType() === "Stadsdeel") {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        if (a.getType() === "Wijk" || b.getType() === "Wijk") {
-            if (a.getType() === "Wijk" && b.getType() === "Wijk") {
-                return 0;
-            } else if (a.getType() === "Wijk") {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        if (a.getType() === "Buurt" || b.getType() === "Buurt") {
-            if (a.getType() === "Buurt" && b.getType() === "Buurt") {
-                return 0;
-            } else if (a.getType() === "Buurt") {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        if (a.getObjectClass() === "Gebouw" || b.getObjectClass() === "Gebouw") {
-            if (a.getObjectClass() === "Gebouw" && b.getObjectClass() === "Gebouw") {
-                return 0;
-            } else if (a.getObjectClass() === "Gebouw") {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
-
-        return 0;
-    })
 }
 
 /**

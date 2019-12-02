@@ -6,58 +6,33 @@ import Observable from "./Observable";
 class Resultaat extends Observable{
     /**
      * @param url string
-     * @param naam string
-     * @param type string
+     * @param koper
+     * @param verkoper
      * @param geoJson geoJson object
-     * @param color string
-     * @param objectClass string
      */
-    constructor(url , naam, type, geoJson, color, objectClass){
+    constructor(url , koper, verkoper, adres,geoJson){
         super();
         this._url = url;
 
-        this._naam = naam;
-        this._type = type;
+        this._koper = koper;
+        this._verkoper = verkoper;
+        this._adres = adres;
         this._geoJson = geoJson;
-        this._color = color;
-        this._objectClass = objectClass;
 
         this._onHoverDef = undefined;
         this._onHoverOffDef = undefined;
     }
 
-    /**
-     * Wordt gebruikt om de rest van de attributen in te laden als je ze eerst niet hebt
-     * @param naam string
-     * @param type string
-     * @param geojson GeoJson
-     * @param color string
-     * @param objectClass string
-     */
-    setSecondProperties(naam, type, geojson, color, objectClass){
-        this._type = type;
-        this._naam = naam;
-        this._geoJson = geojson;
-        this._color = color;
-        this._objectClass = objectClass;
-
-        this.updateSubscribers();
+    getVerkoper(){
+        return this._koper;
     }
 
-    getObjectClass(){
-        return this._objectClass;
-    }
-
-    getNaam(){
-        return this._naam;
+    getKoper(){
+        return this._verkoper;
     }
 
     getUrl(){
         return this._url;
-    }
-
-    getType(){
-        return this._type;
     }
 
     getGeoJson(){
@@ -68,8 +43,8 @@ class Resultaat extends Observable{
         this._geoJson = geoJson;
     }
 
-    getColor(){
-        return this._color;
+    getAdres(){
+        return this._adres;
     }
 
     /**

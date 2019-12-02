@@ -209,6 +209,7 @@ class App extends React.Component {
                 this.setState({
                     isFetching: false
                 })
+
             }
         });
     };
@@ -221,9 +222,12 @@ class App extends React.Component {
 
         //dit is de pop up en de html die tevoorschijn komt.
         marker.bindPopup(`<div class = "marker">
-                    <b>${feature.properties.getNaam()}</b>
+                    <b>Koper:</b> ${feature.properties.getKoper()}
                     <br/>
-                    <span class = "subTextMarker" style="color:${this.getHexFromColor(feature.properties.getColor(), true)};">${feature.properties.getType()}</span><div>
+                    <b>Verkoper:</b> ${feature.properties.getVerkoper()}
+                    <br/>
+                    <span class="subTextMarker">${feature.properties.getAdres()}</span>
+                    <div>
             `, {
             autoPan: false,
             closeButton: false
@@ -428,7 +432,7 @@ class App extends React.Component {
         //zet de view.
         this.map.setView(center, zoom);
 
-        this.props.history.push(`/result/${res.getNaam()}`);
+        this.props.history.push(`/result/resultaat`);
     };
 
     /**

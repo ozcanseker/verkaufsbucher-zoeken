@@ -113,6 +113,8 @@ class ResultatenHouder extends Observable{
 
         this._rightClickedResults = results;
 
+
+
         this.updateSubscribers();
     }
 
@@ -161,7 +163,7 @@ class ResultatenHouder extends Observable{
         let geojson = [];
 
         this._rightClickedResults.forEach(res => {
-            if(res.getGeoJson() && isShownClickedResults(res)) {
+            if(res.getGeoJson()) {
                 geojson.push(res.getAsFeature());
             }
         });

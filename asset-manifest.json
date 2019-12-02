@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "ozcanseker.github.io/verkaufsbucher-zoeken/static/css/main.251fa247.chunk.css",
+    "main.js": "ozcanseker.github.io/verkaufsbucher-zoeken/static/js/main.6260a538.chunk.js",
+    "main.js.map": "ozcanseker.github.io/verkaufsbucher-zoeken/static/js/main.6260a538.chunk.js.map",
+    "runtime-main.js": "ozcanseker.github.io/verkaufsbucher-zoeken/static/js/runtime-main.d71fefa7.js",
+    "runtime-main.js.map": "ozcanseker.github.io/verkaufsbucher-zoeken/static/js/runtime-main.d71fefa7.js.map",
+    "static/js/2.ff6ad66a.chunk.js": "ozcanseker.github.io/verkaufsbucher-zoeken/static/js/2.ff6ad66a.chunk.js",
+    "static/js/2.ff6ad66a.chunk.js.map": "ozcanseker.github.io/verkaufsbucher-zoeken/static/js/2.ff6ad66a.chunk.js.map",
+    "index.html": "ozcanseker.github.io/verkaufsbucher-zoeken/index.html",
+    "precache-manifest.0fa5fd8dc8f3cfc608073805f6b80c96.js": "ozcanseker.github.io/verkaufsbucher-zoeken/precache-manifest.0fa5fd8dc8f3cfc608073805f6b80c96.js",
+    "service-worker.js": "ozcanseker.github.io/verkaufsbucher-zoeken/service-worker.js",
+    "static/css/main.251fa247.chunk.css.map": "ozcanseker.github.io/verkaufsbucher-zoeken/static/css/main.251fa247.chunk.css.map",
+    "static/media/Logo-kadaster.png": "ozcanseker.github.io/verkaufsbucher-zoeken/static/media/Logo-kadaster.5d975e1b.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d71fefa7.js",
+    "static/js/2.ff6ad66a.chunk.js",
+    "static/css/main.251fa247.chunk.css",
+    "static/js/main.6260a538.chunk.js"
+  ]
+}

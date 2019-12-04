@@ -4,14 +4,17 @@
 import L from "leaflet";
 import React from 'react';
 import * as turf from '@turf/turf';
-import * as inside from "point-in-geopolygon";
 import _ from 'lodash';
+
+import 'leaflet.markercluster';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 /**
  * UI
  */
 import Routes from './routes/Routes'
-import {Dropdown, Icon, Search} from 'semantic-ui-react'
+import {Icon, Search} from 'semantic-ui-react'
 import NavBar from "./components/NavBar";
 import Loader from "./components/Loader";
 
@@ -92,13 +95,14 @@ class App extends React.Component {
         //On each feature elke geojson object
         //point to layer bij elke marker
         this.geoJsonLayer = L.geoJSON([], {
-            onEachFeature: this.handleGeoJsonLayerDrawing,
             pointToLayer: this.addMarker,
-            style: this.getStyle
         }).addTo(this.map);
 
         //de groep voor de markers
-        this.markerGroup = L.featureGroup().addTo(this.map);
+        this.markerGroup = L.markerClusterGroup({
+            showCoverageOnHover: false
+        });
+        this.map.addLayer(this.markerGroup);
 
         //dit is voor mobiele applicatie. Als er gesleept wordt sluit dan het context menu.
         this.map.on('dragstart', () => {
@@ -106,19 +110,6 @@ class App extends React.Component {
                 this.setState({clickedOnLayeredMap: undefined});
             }
         });
-    };
-
-    /**
-     * Krijg de style voor een bepaalde feature
-     * @param feature
-     * @returns {{color: (string|*)}}
-     */
-    getStyle = (feature) => {
-        if (feature.properties.getColor()) {
-            return {
-                color: this.getHexFromColor(feature.properties.getColor())
-            };
-        }
     };
 
     /**
@@ -217,7 +208,8 @@ class App extends React.Component {
      * De functie die de kaart aanroept elke keer als deze een marker wilt toevoegen.
      **/
     addMarker = (feature, latlng) => {
-        let marker = L.marker(latlng,).addTo(this.markerGroup);
+        let marker = L.marker(latlng,);
+        this.markerGroup.addLayer(marker);
 
         //dit is de pop up en de html die tevoorschijn komt.
         marker.bindPopup(`<div class = "marker">
@@ -255,145 +247,6 @@ class App extends React.Component {
         marker.on('click', () => {
             this.onClickItem(feature.properties)
         });
-
-        return marker;
-    };
-
-    /**
-     * Krijg alle geojson objecten die in de resultatenhouder zit waar dit punt in zit.
-     * @param lng
-     * @param lat
-     * @returns {*[]}
-     */
-    getAllGeoJsonObjectContainingPoint = (lng, lat) => {
-        let res;
-
-        if (this.state.results.getClickedResult()) {
-            res = [this.state.results.getClickedResult().getAsFeature()];
-        } else if (this.state.results.getRightClickedRes().length > 0) {
-            res = this.state.results.getClickedAllObjectsAsFeature();
-        } else {
-            res = this.state.results.getSearchedAllObjectsAsFeature();
-        }
-
-        res = res.filter(res => {
-                return res.geometry.type === "MultiPolygon" || res.geometry.type === "Polygon"
-            }
-        );
-
-        return res.filter(res => {
-            let col = {type: "FeatureCollection", features: [res]};
-            return inside.feature(col, [lng, lat]) !== -1;
-        });
-    };
-
-    /**
-     * Wordt aangeroepen elke keer als er een geojson object wordt getekend.
-     **/
-    handleGeoJsonLayerDrawing = (feature, layer) => {
-        //de punt wordt al afgehandeld door addMarker
-        if (feature.geometry.type !== 'Point') {
-            //vindt eerst de center
-            var latLong = this.getCenterGeoJson(feature);
-
-                //op deze center voeg een marker toe
-                this.addMarker(feature, latLong);
-
-            //laat de pop up zien als je erover gaat
-            layer.on('mouseover', (e) => {
-                let contains = this.getAllGeoJsonObjectContainingPoint(e.latlng.lng, e.latlng.lat);
-
-                let content = contains.map(res => {
-                    return `<b>${res.properties.getNaam()}</b><br/>
-                    <span class="subTextMarker" style="color:${this.getHexFromColor(res.properties.getColor(), true)};" >${res.properties.getType()} </span>`;
-                }).reverse().join(`<br/>`);
-
-                content = `<div class="popUpMouseOver">${content}<div>`;
-
-                if (contains.length < 1) {
-                    this.map.closePopup();
-                    this.popup = undefined;
-                } else if (!this.popup) {
-                    this.popup = L.popup({
-                        autoPan: false,
-                        closeButton: false
-                    })
-                        .setLatLng(e.latlng)
-                        .setContent(content)
-                        .openOn(this.map);
-                }
-            });
-
-            //dit is de functie die wordt aangeroepen als je over een object heen gaat met je muis.
-            let mouseOverFunction = (e) => {
-                let contains = this.getAllGeoJsonObjectContainingPoint(e.latlng.lng, e.latlng.lat);
-
-                let content = contains.map(res => {
-                    return `<b>${res.properties.getNaam()}</b><br/>
-                    <span class="subTextMarker" style="color:${this.getHexFromColor(res.properties.getColor(), true)};" >${res.properties.getType()} </span>`;
-                }).reverse().join(`<br/>`);
-
-                if (contains.length < 1) {
-                    this.map.closePopup();
-                    this.popup = undefined;
-                } else if (this.popup) {
-                    this.popup.setLatLng(e.latlng);
-
-                    content = `<div class="popUpMouseOver">${content}<div>`;
-
-                    if (content !== this.popup.getContent()) {
-                        this.popup.setContent(content);
-                    }
-                } else {
-                    this.popup = L.popup({
-                        autoPan: false,
-                        closeButton: false
-                    })
-                        .setLatLng(e.latlng)
-                        .setContent(content)
-                        .openOn(this.map);
-                }
-            };
-
-            //Je kan ervoor kiezen om deze functionalitier te trottelen.
-            layer.on('mousemove', _.throttle(mouseOverFunction, 0));
-
-            //sluit de pop up als je er van af gaat
-            layer.on('mouseout', (e) => {
-                this.map.closePopup();
-                this.popup = undefined;
-            });
-
-            //als je er op klikt ga er dan naartoe
-            layer.on('click', (e) => {
-                //check of er meerdere lagen zijn
-                let contains = this.getAllGeoJsonObjectContainingPoint(e.latlng.lng, e.latlng.lat);
-
-                //als er maar één laag is
-                if (contains.length < 2) {
-                    this.onClickItem(feature.properties)
-                } else {
-                    //agrageer de opties en geef deze aan het context menu
-                    let options = contains.reverse().map(res => {
-                        let func = () => {
-                            this.onClickItem(res.properties);
-                        };
-
-                        return {
-                            head: res.properties.getNaam(),
-                            sub: res.properties.getType(),
-                            subColor: res.properties.getColor(),
-                            onClick: func
-                        }
-                    });
-
-                    this.setState({
-                        clickedOnLayeredMap: {x: e.originalEvent.pageX, y: e.originalEvent.pageY},
-                        objectsOverLayedOnMap: options
-                    });
-                }
-            });
-        }
     };
 
     /**

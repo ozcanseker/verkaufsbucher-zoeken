@@ -85,6 +85,7 @@ Linker deel
 
 .header > h1 {
   color: black;
+  margin: auto 1% auto 1%;
 }
 
 .header > *{
@@ -186,8 +187,35 @@ ul {
   margin: 1% 0% 3%;
 }
 
+.objectScreen hr {
+  margin: 0% 0% 3% 0%;
+}
+
 .namenTable {
   margin-bottom: 2%;
+  width: 100%;
+}
+
+.namenTable * {
+  margin-bottom: 0;
+}
+
+.verkoperKoper {
+  vertical-align: top;
+}
+
+.namenTable li{
+  list-style: none;
+
+  &:before{
+    content: '-';
+    margin-left: -20px;
+    margin-right: 3px;
+  }
+}
+
+.namenTable td:last-child{
+  width: 75%;
 }
 
 .attributeSectionObjectScreen {
@@ -197,7 +225,7 @@ ul {
 
 .attributeSectionObjectScreen td:last-child{
   overflow-wrap: break-word;
-  width: 60%;
+  width: 55%;
 }
 
 table{

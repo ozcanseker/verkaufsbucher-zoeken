@@ -18,8 +18,8 @@ import Loader from "./components/Loader";
 /**
  * Assets
  */
-import './App.css';
-import KadasterImg from './assets/Logo-kadaster.png';
+import './App.scss';
+import KadasterImg from './assets/Logo-NA.png';
 
 /**
  * Netwerk
@@ -44,7 +44,6 @@ class App extends React.Component {
             isFetching: false,
             results: new ResultatenHouder(),
             updateIng: false,
-            currentSelected: Communicator.getOptions()[0].value,
             clickedOnLayeredMap: undefined,
             objectsOverLayedOnMap: []
         };
@@ -420,17 +419,19 @@ class App extends React.Component {
         //zet de resultatenhouder de clickedresultaat.
         this.state.results.setClickedResult(clickedRes);
 
-        //krijg de center van de plek waar je naartoe wilt.
-        let center = this.getCenterGeoJson(res.getGeoJson());
-        let zoom = this.map.getZoom();
+        if(res.getGeoJson()){
+            //krijg de center van de plek waar je naartoe wilt.
+            let center = this.getCenterGeoJson(res.getGeoJson());
+            let zoom = this.map.getZoom();
 
-        //als de gebruiker ingezoomt is, zoom dan niet uit.
-        if (zoom < 10) {
-            zoom = 10;
+            //als de gebruiker ingezoomt is, zoom dan niet uit.
+            if (zoom < 10) {
+                zoom = 10;
+            }
+
+            //zet de view.
+            this.map.setView(center, zoom);
         }
-
-        //zet de view.
-        this.map.setView(center, zoom);
 
         this.props.history.push(`/result/resultaat`);
     };
@@ -671,33 +672,6 @@ class App extends React.Component {
     render() {
         let aantalZoekResultaten = this.getZoekResultatenAantal();
 
-        let gearIcon;
-
-        const options = Communicator.getOptions();
-        if (options.length > 1) {
-            gearIcon = (<Dropdown
-                className="cogIcon"
-                icon='cog'
-                upward={true}
-            >
-                <Dropdown.Menu>
-                    <Dropdown.Header
-                        content="Selecteer end-point"
-                    />
-                    <Dropdown.Divider
-                    />
-                    {options.map((option) => (
-                        <Dropdown.Item
-                            className="dropDownItem"
-                            key={option.value} {...option}
-                            active={this.state.currentSelected === option.value}
-                            onClick={this.dropDownSelector}
-                        />
-                    ))}
-                </Dropdown.Menu>
-            </Dropdown>);
-        }
-
         let icon;
         let className;
 
@@ -754,9 +728,8 @@ class App extends React.Component {
                         </div>
                     </div>
                     <div className="footer">
-                        {gearIcon}
-                        <a href="https://zakelijk.kadaster.nl/brt" target="_blank" rel="noreferrer noopener">Lees meer
-                            over de Basisregistratie Topografie (BRT)</a>
+                        <a href="https://www.nationaalarchief.nl/" target="_blank" rel="noreferrer noopener">Meer van het
+                        Nationaal Archief</a>
                     </div>
                 </div>
                 <div className={className} onContextMenu={(e) => e.preventDefault()}>

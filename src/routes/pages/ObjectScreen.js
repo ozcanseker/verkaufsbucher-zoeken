@@ -11,14 +11,14 @@ class ObjectScreen extends React.Component {
     }
 
     componentDidMount() {
-        this.getNamenGegevens(this.props.clickedResult);
+        this.getClickedResultinfo(this.props.clickedResult);
     }
 
     /**
      * Haal alle gegevens op van de clickedResult.
      * @param url
      */
-    getNamenGegevens = (url) => {
+    getClickedResultinfo = (url) => {
         if (url) {
             Communicator.getAllAttribtes(this.props.clickedResult).then(res => {
                 this.setState({
@@ -30,113 +30,56 @@ class ObjectScreen extends React.Component {
 
     render() {
         let res = this.state.res;
-        let naam;
-        let type;
+
+        let adres;
+        let place;
         let tableNamen;
         let tableRest;
 
-
         if (res) {
-            if(res.getNaam()){
-                naam = (<h1>{res.getNaam()}</h1>);
-            }else{
-                if(res.getTunnelNaam()){
-                    naam = (<h1>{res.getTunnelNaam()}</h1>);
-                }else if(res.getKnooppuntNaam()){
-                    naam = (<h1>{res.getKnooppuntNaam()}</h1>);
-                }else if(res.getBrugNaam()){
-                    naam = (<h1>{res.getBrugNaam()}</h1>);
-                }else if(res.getSluisNaam()){
-                    naam = (<h1>{res.getSluisNaam()}</h1>);
-                }
-            }
+            adres = (<h1>{res.getAdres()}</h1>);
+            place = (<h3>{res.getPlace()}</h3>);
 
+            let kopers = (<tr>
+                <td><b>Kopers:</b></td>
+                <td>Onbekend</td>
+            </tr>);
 
-            let color;
+            if (res.getBuyers().length > 0) {
+                let strings = res.getBuyers().map(res => {
+                    return (<li key={res.getName()}>
+                            {res.getName() || res.getName() !== "" ? res.getName() : "Onbekend"}&nbsp;
+                            {res.getLocation() ? "(" + res.getLocation() + ")" : ""}
+                        </li>
+                    );
+                });
 
-            if(res.getColor()){
-                color = {color: this.props.getHexFromColor(res.getColor(), true)};
-            }
-
-            type = (<h3 style={color}>{res.getTypeString()}</h3>);
-
-            let naamNl;
-            let naamFries;
-            let naamOfficeel;
-            let naam2;
-            let brugnaam;
-            let sluisnaam;
-            let knooppuntnaam;
-            let tunnelnaam;
-
-            if (res.getNaamFries()) {
-                naamFries = (
+                kopers = (
                     <tr>
-                        <td><b>Naam Fries:</b></td>
-                        <td>{res.getNaamFries()}</td>
+                        <td className={"verkoperKoper"}><b>Kopers:</b></td>
+                        <td><ul>{strings}</ul></td>
                     </tr>
                 )
             }
 
-            if(res.getNaamOfficieel()){
-                naamOfficeel = (
-                    <tr>
-                        <td><b>Naam officieel:</b></td>
-                        <td>{res.getNaamOfficieel()}</td>
-                    </tr>
-                )
-            }
+            let verkopers = (<tr>
+                <td><b>Verkopers:</b></td>
+                <td>Onbekend</td>
+            </tr>);
 
-            if (res.getNaamNl()) {
-                naamNl = (
-                    <tr>
-                         <td><b>Naam Nederlands:</b></td>
-                         <td>{res.getNaamNl()}</td>
-                     </tr>
-                )
-            }
+            if (res.getSellers().length > 0) {
+                let strings = res.getSellers().map(res => {
+                    return (<li key={res.getName()}>
+                            {res.getName() || res.getName() !== "" ? res.getName() : "Onbekend"}&nbsp;
+                            {res.getLocation() ? "(" + res.getLocation() + ")" : ""}
+                        </li>
+                    );
+                });
 
-            if (res.getNaam() && !res.getNaamNl()) {
-                naam2 = (
+                verkopers = (
                     <tr>
-                        <td><b>Naam:</b></td>
-                        <td>{res.getNaam()}</td>
-                    </tr>
-                )
-            }
-
-            if (res.getTunnelNaam()) {
-                tunnelnaam = (
-                    <tr>
-                        <td><b>Tunnel naam:</b></td>
-                        <td>{res.getTunnelNaam()}</td>
-                    </tr>
-                )
-            }
-
-            if (res.getBrugNaam()) {
-                brugnaam = (
-                    <tr>
-                        <td><b>Brug naam:</b></td>
-                        <td>{res.getBrugNaam()}</td>
-                    </tr>
-                )
-            }
-
-            if (res.getSluisNaam()) {
-                sluisnaam = (
-                    <tr>
-                        <td><b>Sluis naam:</b></td>
-                        <td>{res.getSluisNaam()}</td>
-                    </tr>
-                )
-            }
-
-            if (res.getKnooppuntNaam()) {
-                knooppuntnaam = (
-                    <tr>
-                        <td><b>Knooppunt naam:</b></td>
-                        <td>{res.getKnooppuntNaam()}</td>
+                        <td className={"verkoperKoper"}><b>Verkopers:</b></td>
+                        <td><ul>{strings}</ul></td>
                     </tr>
                 )
             }
@@ -145,38 +88,47 @@ class ObjectScreen extends React.Component {
                 <div>
                     <table className="namenTable">
                         <tbody>
-                            {naamOfficeel}
-                            {naamNl}
-                            {naamFries}
-                            {naam2}
-                            {tunnelnaam}
-                            {brugnaam}
-                            {sluisnaam}
-                            {knooppuntnaam}
+                        {kopers}
+                        {verkopers}
                         </tbody>
                     </table>
                     <hr/>
                 </div>
             );
 
-            let attributes = res.getAttributes().map(res => {
-                let value = res.value;
 
-                if(value.startsWith("http://")){
-                    value = (<a href={value} target="_blank" rel = "noreferrer noopener">{value}</a>);
-                }
+            let verkoopprijs;
+            let koopdatum;
+            let ertovf;
 
-                return (<tr key = {res.key + res.value}>
-                    <td>{res.key}</td>
-                    <td>{value}</td>
-                </tr>)
-            })
+            if(res.getDate()){
+                koopdatum = (<tr>
+                        <td><b>Definitieve koopdatum:</b></td>
+                        <td>{res.getDate()}</td>
+                    </tr>
+                )
+            }
+
+            if(res.getPrice){
+                verkoopprijs = (<tr>
+                    <td><b>Verkoopprijs:</b></td>
+                    <td>&#402; {formatNumber(res.getPrice())}</td>
+                </tr>
+                );
+
+                ertovf = (<tr>
+                        <td><b>&euro; 2018 tov &#402; 1944:</b></td>
+                        <td>&euro; {formatNumber(res.getPrice()*6.37)}</td>
+                    </tr>
+                );
+            }
 
             tableRest = (
-
                 <table className="attributeSectionObjectScreen">
                     <tbody>
-                    {attributes}
+                    {koopdatum}
+                    {verkoopprijs}
+                    {ertovf}
                     </tbody>
                 </table>
             )
@@ -184,8 +136,8 @@ class ObjectScreen extends React.Component {
 
         return (
             <div className="objectScreen">
-                {naam}
-                {type}
+                {adres}
+                {place}
                 {tableNamen}
                 {tableRest}
             </div>
@@ -193,4 +145,8 @@ class ObjectScreen extends React.Component {
     }
 }
 
+function formatNumber(num) {
+    num = parseInt(num).toString();
+    return num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + ",-";
+}
 export default ObjectScreen;

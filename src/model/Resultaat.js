@@ -8,6 +8,7 @@ class Resultaat extends Observable{
      * @param url string
      * @param koper
      * @param verkoper
+     * @param adres
      * @param geoJson geoJson object
      */
     constructor(url , koper, verkoper, adres,geoJson){
@@ -24,11 +25,11 @@ class Resultaat extends Observable{
     }
 
     getVerkoper(){
-        return this._koper;
+        return this._verkoper;
     }
 
     getKoper(){
-        return this._verkoper;
+        return this._koper;
     }
 
     getUrl(){

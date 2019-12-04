@@ -11,7 +11,6 @@
 import * as wellKnown from "wellknown";
 import Resultaat from "../model/Resultaat";
 import * as turf from "@turf/turf";
-import ClusterObject from "../model/ClusterObject";
 
 /**
  * Een file die alle classen van de brt bevat. Object klassen staan achter aan.
@@ -347,7 +346,7 @@ export function clusterObjects(res) {
             geoJson = first.getGeoJson();
         }
 
-        clusters.push(new ClusterObject(first.getNaam(), first.getType(), geoJson, value, first.getColor(), first.getObjectClass()));
+        // clusters.push(new ClusterObject(first.getNaam(), first.getType(), geoJson, value, first.getColor(), first.getObjectClass()));
     });
 
     return clusters.concat(res);

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/verkaufsbucher-zoeken/precache-manifest.2afaf77aa11e5738397b88d5db6228ca.js"
+  "/verkaufsbucher-zoeken/precache-manifest.13c981fb2e6c768f7d8b1987aaba213d.js"
 );
 
 self.addEventListener('message', (event) => {

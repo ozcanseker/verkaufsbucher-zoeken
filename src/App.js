@@ -451,21 +451,6 @@ class App extends React.Component {
         this.updateMapDebounce(results);
     };
 
-    /**
-     * Wordt aangeroepen als er op het tandwieltje wordt geklikt.
-     * @param e
-     * @param v
-     */
-    dropDownSelector = (e, v) => {
-        if (this.state.currentSelected !== v.value) {
-            this.setState({
-                currentSelected: v.value,
-                isFetching: false
-            }, () => {
-                this.handleDeleteClick();
-            })
-        }
-    };
 
     /**
      * Update de kaart.

@@ -2,7 +2,6 @@
  * Houdt resultaat bij. Update de app als er iets verandert.
  */
 import Observable from "./Observable";
-import {isShownClickedResults, sortByObjectClass} from "../network/ProcessorMethods";
 
 class ResultatenHouder extends Observable{
     constructor(){
@@ -154,8 +153,6 @@ class ResultatenHouder extends Observable{
             }
         });
 
-        sortByObjectClass(geojson);
-
         return geojson;
     }
 
@@ -167,8 +164,6 @@ class ResultatenHouder extends Observable{
                 geojson.push(res.getAsFeature());
             }
         });
-
-        sortByObjectClass(geojson);
 
         return geojson;
     }

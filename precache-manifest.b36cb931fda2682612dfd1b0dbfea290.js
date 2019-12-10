@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "906fdf6d57cb0138c310b5bef7fbf0f7",
+    "revision": "58aaf0457d3cf244ed059e1b8c5f524a",
     "url": "/verkaufsbucher-zoeken/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/verkaufsbucher-zoeken/static/css/2.d1800115.chunk.css"
   },
   {
-    "revision": "5b2bad7108f81e36ce5d",
+    "revision": "f8bfcb8cbbc90cfbfb6b",
     "url": "/verkaufsbucher-zoeken/static/css/main.548eaac5.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/verkaufsbucher-zoeken/static/js/2.bcfa304c.chunk.js"
   },
   {
-    "revision": "5b2bad7108f81e36ce5d",
-    "url": "/verkaufsbucher-zoeken/static/js/main.fea0efdb.chunk.js"
+    "revision": "f8bfcb8cbbc90cfbfb6b",
+    "url": "/verkaufsbucher-zoeken/static/js/main.7bbddadd.chunk.js"
   },
   {
     "revision": "99f70ae83df639fee649",

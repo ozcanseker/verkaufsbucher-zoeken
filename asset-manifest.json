@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/verkaufsbucher-zoeken/static/css/main.548eaac5.chunk.css",
-    "main.js": "/verkaufsbucher-zoeken/static/js/main.fea0efdb.chunk.js",
-    "main.js.map": "/verkaufsbucher-zoeken/static/js/main.fea0efdb.chunk.js.map",
+    "main.js": "/verkaufsbucher-zoeken/static/js/main.7bbddadd.chunk.js",
+    "main.js.map": "/verkaufsbucher-zoeken/static/js/main.7bbddadd.chunk.js.map",
     "runtime-main.js": "/verkaufsbucher-zoeken/static/js/runtime-main.a67c695d.js",
     "runtime-main.js.map": "/verkaufsbucher-zoeken/static/js/runtime-main.a67c695d.js.map",
     "static/css/2.d1800115.chunk.css": "/verkaufsbucher-zoeken/static/css/2.d1800115.chunk.css",
     "static/js/2.bcfa304c.chunk.js": "/verkaufsbucher-zoeken/static/js/2.bcfa304c.chunk.js",
     "static/js/2.bcfa304c.chunk.js.map": "/verkaufsbucher-zoeken/static/js/2.bcfa304c.chunk.js.map",
     "index.html": "/verkaufsbucher-zoeken/index.html",
-    "precache-manifest.41ab0d9e8a4b129dfdef784f598357d6.js": "/verkaufsbucher-zoeken/precache-manifest.41ab0d9e8a4b129dfdef784f598357d6.js",
+    "precache-manifest.b36cb931fda2682612dfd1b0dbfea290.js": "/verkaufsbucher-zoeken/precache-manifest.b36cb931fda2682612dfd1b0dbfea290.js",
     "service-worker.js": "/verkaufsbucher-zoeken/service-worker.js",
     "static/css/2.d1800115.chunk.css.map": "/verkaufsbucher-zoeken/static/css/2.d1800115.chunk.css.map",
     "static/css/main.548eaac5.chunk.css.map": "/verkaufsbucher-zoeken/static/css/main.548eaac5.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.d1800115.chunk.css",
     "static/js/2.bcfa304c.chunk.js",
     "static/css/main.548eaac5.chunk.css",
-    "static/js/main.fea0efdb.chunk.js"
+    "static/js/main.7bbddadd.chunk.js"
   ]
 }

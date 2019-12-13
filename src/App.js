@@ -543,6 +543,7 @@ class App extends React.Component {
                                 onSearchChange={this.onSearchChange}
                                 open={false}
                                 onFocus={this.onFocus}
+                                placeholder ={"Achternaam, straatnaam, plaatsnaam?"}
                         />
                     </div>
                     <div className="resultsContainer">
@@ -566,8 +567,7 @@ class App extends React.Component {
                         </div>
                     </div>
                     <div className="footer">
-                        <a href="https://www.nationaalarchief.nl/" target="_blank" rel="noreferrer noopener">Meer van het
-                        Nationaal Archief</a>
+                        <a target="_blank" rel="noreferrer noopener">Dit project is een samenwerking tussen het Nationaal Archief en het Kadaster.</a>
                     </div>
                 </div>
                 <div className={className} onContextMenu={(e) => e.preventDefault()}>
